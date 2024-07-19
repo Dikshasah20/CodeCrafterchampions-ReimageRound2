@@ -1,4 +1,4 @@
-$(document).ready(function () {
+ $(document).ready(function () {
   $("html,body").addClass("overflow");
   setTimeout(() => {
     $("html,body").removeClass("overflow");
@@ -608,3 +608,113 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
+
+
+// cursor 
+// const divArray = [];
+
+// // Loop to create and store divs
+// for (let i = 0; i < 10; i++) {
+//   const newDiv = document.createElement("div");
+  
+//   newDiv.style.cssText = `
+//   width: 24px;
+//   height: 24px;
+//   border-radius: 50%;
+//   background-color: red;
+//   position:absolute;
+//   top:0;
+//   left:0;
+//   `;
+//   newDiv.classList.add("cursor-follower");  
+//   document.body.appendChild(newDiv);
+//   divArray.push(newDiv);
+// }
+
+
+// const circlesFollower=document.querySelectorAll('.cursor-follower')
+// const cords ={x:0,y:0}
+// circlesFollower.forEach(function(circlesFollower){
+//   circlesFollower.x=0
+//   circlesFollower.y=0
+// })
+// window.addEventListener("mousemove",function(e){
+//   cords.x=e.clientX
+//   cords.y=e.clientY
+//   console.log(cords)
+// })
+// function animateCircle() {
+//   let x = cords.x;
+//   let y = cords.y;
+  
+//   circlesFollower.forEach(function (circle, index) {
+//     circle.style.left = x - 12 + "px"; // Update position based on cursor
+//     circle.style.top = y - 12 + "px";
+//     circle.style.scale=(circlesFollower.length-index)/circlesFollower.length
+//     circle.x=x
+//     circle.y=y
+//     const nextCircle = circlesFollower[index+1]||circlesFollower[0]; 
+//     x += (nextCircle.x - x) * 0.8; // Use offsetLeft for better performance
+//     y += (nextCircle.y - y) * 0.8;
+//   });
+//   requestAnimationFrame(animateCircle)
+// }
+// animateCircle()
+const divArray = [];
+
+// Loop to create and store divs
+for (let i = 0; i < 10; i++) {
+  const newDiv = document.createElement("div");
+  
+  newDiv.style.cssText = `
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: red;
+    position:absolute;
+    top:0;
+    left:0;
+  `;
+  newDiv.classList.add("cursor-follower");
+  document.body.appendChild(newDiv);
+  divArray.push(newDiv);
+}
+
+const circlesFollower = document.querySelectorAll('.cursor-follower');
+const cords = { x: 0, y: 0, scrollX: 0, scrollY: 0 };
+
+circlesFollower.forEach(function(circle) {
+  circle.x = 0;
+  circle.y = 0;
+});
+
+window.addEventListener("mousemove", function(e) {
+  cords.x = e.clientX + window.scrollX;
+  cords.y = e.clientY + window.scrollY;
+});
+
+window.addEventListener("scroll", function() {
+  cords.scrollX = window.scrollX;
+  cords.scrollY = window.scrollY;
+});
+
+function animateCircle() {
+  let x = cords.x;
+  let y = cords.y;
+  
+  circlesFollower.forEach(function(circle, index) {
+    circle.style.left = x - 12 + "px"; // Update position based on cursor
+    circle.style.top = y - 12 + "px";
+    circle.style.scale = (circlesFollower.length - index) / circlesFollower.length;
+    circle.x = x;
+    circle.y = y;
+    const nextCircle = circlesFollower[index + 1] || circlesFollower[0];
+    x += (nextCircle.x - x) * 0.8;
+    y += (nextCircle.y - y) * 0.8;
+  });
+  requestAnimationFrame(animateCircle);
+}
+
+animateCircle();
+
+
