@@ -717,4 +717,10 @@ function animateCircle() {
 
 animateCircle();
 
-
+// Adjust circle size on window resize
+window.addEventListener('resize', function () {
+  circlesFollower.forEach(function (circle) {
+    circle.style.width = '2vw';
+    circle.style.height = '2vw';
+  });
+});
