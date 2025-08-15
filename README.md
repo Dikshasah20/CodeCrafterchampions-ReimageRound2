@@ -1,3 +1,2 @@
-# CodeCrafterchampions-ReimageRound2
-hello 
+# CodeCrafterchampions
 @sheryians coding school
